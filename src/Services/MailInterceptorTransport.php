@@ -12,6 +12,9 @@ class MailInterceptorTransport extends Transport
 {
     public const LOGGING_NAME = 'mail.log';
 
+    /** @var string name log file */
+    protected $logName;
+
     /**
      * The Logger instance.
      *
@@ -25,9 +28,10 @@ class MailInterceptorTransport extends Transport
      * @param  \Psr\Log\LoggerInterface  $logger
      * @return void
      */
-    public function __construct(LoggerInterface $logger)
+    public function __construct(LoggerInterface $logger, string $logName)
     {
         $this->logger = $logger;
+        $this->logName = $logName;
     }
 
     /**

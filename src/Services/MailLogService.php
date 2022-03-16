@@ -7,6 +7,19 @@ use JsonException;
 
 class MailLogService implements MailLogServiceInterface
 {
+    protected $app;
+
+    /**
+     * Create a new service provider instance.
+     *
+     * @param  \Illuminate\Contracts\Foundation\Application  $app
+     * @return void
+     */
+    public function __construct($app)
+    {
+        $this->app = $app;
+    }
+
     /**
      * @return MailDTO[]
      * @throws JsonException
@@ -53,6 +66,6 @@ class MailLogService implements MailLogServiceInterface
 
     private function getPath()
     {
-        return storage_path('logs') . DIRECTORY_SEPARATOR . 'mail.log';;
+        return storage_path('logs') . DIRECTORY_SEPARATOR . $this->app['config']['mail.mail_interceptor_log'];
     }
 }

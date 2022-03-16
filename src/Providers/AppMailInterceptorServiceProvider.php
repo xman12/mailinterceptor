@@ -17,7 +17,9 @@ class AppMailInterceptorServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(MailLogServiceInterface::class, MailLogService::class);
+        $this->app->singleton(MailLogServiceInterface::class, function ($app) {
+            return new MailLogService($app);
+        });
     }
 
     public function boot()
