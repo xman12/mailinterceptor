@@ -2,7 +2,6 @@
 
 namespace MailInterceptor\Providers;
 
-use MailInterceptor\Services\{MailLogService, MailLogServiceInterface};
 use MailInterceptor\Services\TransportMailManager;
 use Illuminate\Mail\MailServiceProvider;
 
@@ -16,16 +15,13 @@ class MailInterceptorServiceProvider extends MailServiceProvider
         $this->app->singleton('swift.transport', function () {
             return new TransportMailManager($this->app);
         });
-        $this->registationServices();
     }
 
-    /**
-     * Registration services
-     *
-     * @return void
-     */
-    protected function registationServices()
+    public function provides()
     {
-        $this->app->singleton(MailLogServiceInterface::class, MailLogService::class);
+        $providers = parent::provides();
+        array_push($providers, 'mailinterceptor');
+
+        return $providers;
     }
 }
