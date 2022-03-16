@@ -8,7 +8,7 @@ use Illuminate\Support\ServiceProvider;
 /**
  * Registration app services
  */
-class MailInterceptorServiceProvider extends ServiceProvider
+class AppMailInterceptorServiceProvider extends ServiceProvider
 {
     /**
      * Registration services
