@@ -3,18 +3,23 @@
 namespace MailInterceptor\Http\Controllers;
 
 use MailInterceptor\Mail\Test;
-use MailInterceptor\Services\MailLogService;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Support\Facades\View;
 use JsonException;
+use MailInterceptor\Services\MailLogServiceInterface;
 use RuntimeException;
 
+/**
+ * Main controller
+ */
 class IndexController extends Controller
 {
+    /** @var string path with views */
     protected const PATH_VIEW = __DIR__.'/../../../resources/views';
+
     protected $mailLogService;
 
-    public function __construct(MailLogService $mailLogService)
+    public function __construct(MailLogServiceInterface $mailLogService)
     {
         $this->mailLogService = $mailLogService;
     }
