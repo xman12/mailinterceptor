@@ -13,7 +13,7 @@ class TransportMailManager extends TransportManager
         $logger = $this->app->make(LoggerInterface::class);
 
         if ($logger instanceof LogManager) {
-            $logger = $logger->channel($this->app['config']['logging.mail_log']);
+            $logger = $logger->channel('mail_interceptor_log');
         }
 
         return new MailInterceptorTransport($logger, $this->app['config']['mail.mail_interceptor_log']);
