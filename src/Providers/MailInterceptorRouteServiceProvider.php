@@ -37,12 +37,13 @@ class MailInterceptorRouteServiceProvider extends ServiceProvider
     {
         Route::prefix('mailinterceptor')->namespace($this->namespace)->group(function () {
 
-            Route::get('/', 'IndexController@indexAction')->name('index');
-            Route::get('/view/{id}', 'IndexController@viewAction')->name('view');
-            Route::get('/mail/{id}', 'IndexController@showMailAction')->name('mail.show');
-            Route::get('/delete/{id}', 'IndexController@deleteMailAction')->name('mail.delete');
-            Route::get('/clear', 'IndexController@flushAction')->name('flush');
+            Route::get('/', 'IndexController@indexAction')->name('mailinterceptor.index');
+            Route::get('/view/{id}', 'IndexController@viewAction')->name('mailinterceptor.view');
+            Route::get('/mail/{id}', 'IndexController@showMailAction')->name('mailinterceptor.mail.show');
+            Route::get('/delete/{id}', 'IndexController@deleteMailAction')->name('mailinterceptor.mail.delete');
+            Route::get('/clear', 'IndexController@flushAction')->name('mailinterceptor.flush');
             Route::get('/test', 'IndexController@testAction');
+            Route::get('/assets/{path}', 'IndexController@webAssetAction')->where('path', '.*')->name('mailinterceptor.assets');
 
         });
 
@@ -58,9 +59,6 @@ class MailInterceptorRouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes()
     {
-        Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
     }
 
     /**
@@ -72,9 +70,5 @@ class MailInterceptorRouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes()
     {
-        Route::prefix('api')
-             ->middleware('api')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/api.php'));
     }
 }

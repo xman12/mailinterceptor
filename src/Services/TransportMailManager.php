@@ -16,6 +16,6 @@ class TransportMailManager extends TransportManager
             $logger = $logger->channel('mail_interceptor_log');
         }
 
-        return new MailInterceptorTransport($logger, $this->app['config']['mail.mail_interceptor_log']);
+        return new MailInterceptorTransport($logger);
     }
 }

@@ -7,7 +7,10 @@ use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Support\Facades\View;
 use JsonException;
 use MailInterceptor\Services\MailLogServiceInterface;
+use MailInterceptor\Web;
 use RuntimeException;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Main controller
@@ -31,7 +34,7 @@ class IndexController extends Controller
     {
         $mails = $this->mailLogService->getMails();
 
-        return View::file(self::PATH_VIEW.'/index.blade.php', [
+        return View::file(self::PATH_VIEW.'/index2.blade.php', [
             'mails' => $mails
         ]);
     }
@@ -75,6 +78,15 @@ class IndexController extends Controller
     public function flushAction()
     {
         $this->mailLogService->flush();
+    }
+
+    public function webAssetAction($path)
+    {
+        $asset = (new Web())->asset($path);
+
+        if (! $asset) throw new NotFoundHttpException;
+
+        return new BinaryFileResponse($asset['path'], 200, [ 'Content-Type' => $asset['mime'] ]);
     }
 
     public function testAction()

@@ -9,6 +9,8 @@
 
     <title>Главная</title>
     <meta name="description" lang="ru" content="@yield('description')" />
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+
 </head>
 <body>
 
@@ -27,9 +29,9 @@
         <p>Content-Type: {{ $mail->getHeaders()->getContentType() }}</p>
         <p>Content-Transfer-Encoding: {{ $mail->getHeaders()->getContentTransferEncoding() }}</p>
 
-        <iframe src="{{ route('view', ['id' => $key]) }}" class="iPhoneX"></iframe>
-        <iframe src="{{ route('view', ['id' => $key]) }}" class="IPad"></iframe>
-        <iframe src="{{ route('view', ['id' => $key]) }}" class="pc"></iframe>
+        <iframe src="{{ route('mailinterceptor.view', ['id' => $key]) }}" class="iPhoneX"></iframe>
+        <iframe src="{{ route('mailinterceptor.view', ['id' => $key]) }}" class="IPad"></iframe>
+        <iframe src="{{ route('mailinterceptor.view', ['id' => $key]) }}" class="pc"></iframe>
     @endforeach
 
     <style>

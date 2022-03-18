@@ -2,26 +2,22 @@
 
 namespace MailInterceptor\Services;
 
+use Illuminate\Contracts\Foundation\Application;
 use MailInterceptor\DTO\MailDTO;
 use JsonException;
 
 class MailLogService implements MailLogServiceInterface
 {
+    /** @var Application  */
     protected $app;
 
-    /**
-     * Create a new service provider instance.
-     *
-     * @param  \Illuminate\Contracts\Foundation\Application  $app
-     * @return void
-     */
     public function __construct($app)
     {
         $this->app = $app;
     }
 
     /**
-     * @return MailDTO[]
+     * @inheritdoc
      * @throws JsonException
      */
     public function getMails(): array
@@ -38,6 +34,7 @@ class MailLogService implements MailLogServiceInterface
     }
 
     /**
+     * @inheritdoc
      * @throws JsonException
      */
     public function getMailById(int $id): ?MailDTO
@@ -45,6 +42,9 @@ class MailLogService implements MailLogServiceInterface
         return $this->getMails()[$id] ?? null;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function deleteById(int $id): void
     {
         $data = file($this->getPath());
@@ -57,14 +57,19 @@ class MailLogService implements MailLogServiceInterface
         fclose($fp);
     }
 
-    public function flush()
+    /**
+     * @inheritdoc
+     */
+    public function flush(): void
     {
         $fp = fopen($this->getPath(), 'wb');
         fclose($fp);
     }
 
-
-    private function getPath()
+    /**
+     * @return string
+     */
+    private function getPath(): string
     {
         return storage_path('logs') . DIRECTORY_SEPARATOR . $this->app['config']['mail.mail_interceptor_log'];
     }
