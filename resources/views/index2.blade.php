@@ -55,7 +55,7 @@
                 <ul class="nav nav-list">
                     <li class="nav-header">Входящие</li>
                     @foreach($mails as $key => $mail)
-                        <li @if($id === $key) class="active" @endif><a href="{{ route('mailinterceptor.index', ['id' => $key]) }}">{{ $mail->getHeaders()->getSubject() }}</a></li>
+                        <li @if($id === $key) class="active" @endif><a href="{{ route('mailinterceptor.index', ['id' => $key]) }}">{{ $mail->getHeaders()->getSubject() }} ({{ $mail->getTime() }})</a></li>
                     @endforeach
                 </ul>
             </div><!--/.well -->

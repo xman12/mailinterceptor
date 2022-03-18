@@ -4,16 +4,20 @@ namespace MailInterceptor\DTO;
 
 class MailDTO
 {
+    /** @var string */
+    private $time;
+
     /** @var MailHeadersDTO */
     private $headers;
 
     /** @var string  */
     private $body;
 
-    public function __construct(array $data)
+    public function __construct(array $data, string $time)
     {
         $this->body = $data['body'];
         $this->headers = MailHeadersDTO::createFromArray($data['headers']);
+        $this->time = $time;
     }
 
     /**
@@ -30,5 +34,13 @@ class MailDTO
     public function getBody(): string
     {
         return $this->body;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTime(): string
+    {
+        return $this->time;
     }
 }
