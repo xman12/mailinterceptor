@@ -10,15 +10,14 @@ class MailInterceptorUrlGenerator extends UrlGenerator
     {
         $prefix = $this->getRequest()->route()->getPrefix();
         if ('mailinterceptor' === $prefix) {
-            $path = $this->resolveAssetPath($path);
 
-            return $path;
+            return $this->resolveAssetPath($path);
         }
 
         return parent::asset($path, $secure);
     }
 
-    protected function resolveAssetPath($path)
+    protected function resolveAssetPath($path): string
     {
         return $this->route('mailinterceptor.assets', ['path' => $path]);
     }
