@@ -2,6 +2,7 @@
 
 namespace MailInterceptor\Http\Controllers;
 
+use Illuminate\Http\Request;
 use MailInterceptor\Mail\Test;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Support\Facades\View;
@@ -30,12 +31,16 @@ class IndexController extends Controller
     /**
      * @throws JsonException
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $mails = $this->mailLogService->getMails();
+        $id = (int)$request->get('id', 0);
+        $selectedMail = $mails[$id] ?? current($mails);
 
         return View::file(self::PATH_VIEW.'/index2.blade.php', [
-            'mails' => $mails
+            'mails' => $mails,
+            'selectedMail' => $selectedMail,
+            'id' => $id
         ]);
     }
 
