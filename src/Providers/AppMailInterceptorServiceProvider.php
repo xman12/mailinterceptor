@@ -2,6 +2,7 @@
 
 namespace MailInterceptor\Providers;
 
+use Closure;
 use Illuminate\Routing\UrlGenerator;
 use MailInterceptor\Services\{MailLogService, MailLogServiceInterface};
 use Illuminate\Support\ServiceProvider;
@@ -32,6 +33,9 @@ class AppMailInterceptorServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * @return Closure
+     */
     protected function requestRebinder()
     {
         return function ($app, $request) {

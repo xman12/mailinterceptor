@@ -4,12 +4,18 @@ namespace MailInterceptor\Providers;
 
 use MailInterceptor\Services\TransportMailManager;
 use Illuminate\Mail\MailServiceProvider;
+use MailInterceptor\Web;
 
 /**
  * Registration mail service
  */
 class MailInterceptorServiceProvider extends MailServiceProvider
 {
+    /**
+     * Define MailInterceptor transport manager
+     *
+     * @return void
+     */
     protected function registerSwiftTransport()
     {
         $this->app->singleton('swift.transport', function () {
@@ -17,10 +23,15 @@ class MailInterceptorServiceProvider extends MailServiceProvider
         });
     }
 
-    public function provides()
+    /**
+     *
+     *
+     * @return array
+     */
+    public function provides(): array
     {
         $providers = parent::provides();
-        array_push($providers, 'mailinterceptor');
+        array_push($providers, Web::SERVICE_NAME);
 
         return $providers;
     }

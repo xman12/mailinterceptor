@@ -6,9 +6,12 @@ use Illuminate\Contracts\Foundation\Application;
 use MailInterceptor\DTO\MailDTO;
 use JsonException;
 
+/**
+ * MailLog service
+ */
 class MailLogService implements MailLogServiceInterface
 {
-    /** @var Application  */
+    /** @var Application */
     protected $app;
 
     public function __construct($app)
@@ -68,6 +71,8 @@ class MailLogService implements MailLogServiceInterface
     }
 
     /**
+     * Get path to log file
+     *
      * @return string
      */
     private function getPath(): string

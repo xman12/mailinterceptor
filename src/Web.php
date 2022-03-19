@@ -5,6 +5,9 @@ namespace MailInterceptor;
 // Helper class for serving app assets
 class Web
 {
+    /** @var string */
+    public const SERVICE_NAME = 'mailinterceptor';
+
     // Return the absolute path and a mime type of an asset, protects from accessing files outside Clockwork public dir
     public function asset($path)
     {

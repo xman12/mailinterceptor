@@ -69,7 +69,7 @@
                 <p>От кого: {{ $selectedMail->getHeaders()->getFrom() }}</p>
                 <p>MIME-Version: {{ $selectedMail->getHeaders()->getMimeVersion() }}</p>
                 <p>Content-Type: {{ $selectedMail->getHeaders()->getContentType() }}</p>
-                <p>Content-Transfer-Encoding: {{ $selectedMail->getHeaders()->getContentTransferEncoding() }}</p>{{--                <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>--}}
+                <p>Content-Transfer-Encoding: {{ $selectedMail->getHeaders()->getContentTransferEncoding() }}</p>
             </div>
             <div class="row-fluid text-center">
                 <div class="span4"><button class="btn btn-primary" onclick="showView('view-mob')">мобила</button></div>

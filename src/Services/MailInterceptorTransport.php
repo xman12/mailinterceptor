@@ -8,6 +8,9 @@ use Psr\Log\LoggerInterface;
 use Swift_Mime_SimpleMessage;
 use Swift_Mime_SimpleMimeEntity;
 
+/**
+ * MailInterceptor mail transport
+ */
 class MailInterceptorTransport extends Transport
 {
     /**

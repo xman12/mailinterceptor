@@ -4,7 +4,11 @@ namespace MailInterceptor\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use MailInterceptor\Web;
 
+/**
+ * MailInterceptor routs
+ */
 class MailInterceptorRouteServiceProvider extends ServiceProvider
 {
     /**
@@ -23,8 +27,6 @@ class MailInterceptorRouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
     }
 
@@ -35,8 +37,9 @@ class MailInterceptorRouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
+        // will be work only into local space
         if ('local' === $this->app['config']['app.env']) {
-            Route::prefix('mailinterceptor')->namespace($this->namespace)->group(function () {
+            Route::prefix(Web::SERVICE_NAME)->namespace($this->namespace)->group(function () {
 
                 Route::get('/', 'IndexController@indexAction')->name('mailinterceptor.index');
                 Route::get('/view/{id}', 'IndexController@viewAction')->name('mailinterceptor.view');
