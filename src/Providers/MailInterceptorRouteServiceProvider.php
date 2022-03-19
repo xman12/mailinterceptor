@@ -42,12 +42,12 @@ class MailInterceptorRouteServiceProvider extends ServiceProvider
             Route::prefix(Web::SERVICE_NAME)->namespace($this->namespace)->group(function () {
 
                 Route::get('/', 'IndexController@indexAction')->name('mailinterceptor.index');
-                Route::get('/view/{id}', 'IndexController@viewAction')->name('mailinterceptor.view');
-                Route::get('/mail/{id}', 'IndexController@showMailAction')->name('mailinterceptor.mail.show');
-                Route::get('/delete/{id}', 'IndexController@deleteMailAction')->name('mailinterceptor.mail.delete');
-                Route::get('/clear', 'IndexController@flushAction')->name('mailinterceptor.flush');
-                Route::get('/test', 'IndexController@testAction');
-                Route::get('/assets/{path}', 'IndexController@webAssetAction')->where('path', '.*')->name('mailinterceptor.assets');
+                Route::get('/view/{id}/', 'IndexController@viewAction')->name('mailinterceptor.view');
+                Route::get('/mail/{id}/', 'IndexController@showMailAction')->name('mailinterceptor.mail.show');
+                Route::get('/delete/{id}/', 'IndexController@deleteMailAction')->name('mailinterceptor.mail.delete');
+                Route::get('/clear/', 'IndexController@flushAction')->name('mailinterceptor.flush');
+                Route::get('/test/', 'IndexController@testAction');
+                Route::get('/assets/{path}/', 'IndexController@webAssetAction')->where('path', '.*')->name('mailinterceptor.assets');
 
             });
         }

@@ -22,17 +22,21 @@ http://yourdomain/mailinterceptor
 composer require xman12/mailinterceptor
 ```
 - пропишите настройки в .env: MAIL_INTERCEPTOR_LOG=mail-base.log (имя может быть любым) , MAIL_DRIVER=mailinterceptor
-- добавьте в app/config.php в массив 'providers' след провайдеры:
+- добавьте в config/app.php в массив 'providers' след провайдеры:
   MailInterceptorRouteServiceProvider::class,
   MailInterceptorServiceProvider::class,
   AppMailInterceptorServiceProvider::class
-- добавьте в app/logging.php в массив 'channels' след настройки:
+- добавьте в config/logging.php в массив 'channels' след настройки:
 ```bash
   'mail_interceptor_log' => [
   'driver' => 'single',
   'path' => storage_path('logs/'. env('MAIL_INTERCEPTOR_LOG')),
   'level' => 'debug',
   ],
+```
+- добавьте в config/mail.php
+```bash
+  'mail_interceptor_log' => env('MAIL_INTERCEPTOR_LOG', 'mail.log'),
 ```
 
 
