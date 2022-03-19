@@ -48,7 +48,8 @@ class MailHeadersDTO
     private $contentType;
 
     /**
-     * @param array $data
+     * @param  array  $data
+     *
      * @return static
      */
     public static function createFromArray(array $data): self
@@ -87,7 +88,7 @@ class MailHeadersDTO
      */
     public function getSubject(): ?string
     {
-        return $this->subject;
+        return $this->imapUtf8Fix($this->subject);
     }
 
     /**
@@ -95,7 +96,7 @@ class MailHeadersDTO
      */
     public function getFrom(): ?string
     {
-        return $this->from;
+        return $this->imapUtf8Fix($this->from);
     }
 
     /**
@@ -103,7 +104,7 @@ class MailHeadersDTO
      */
     public function getTo(): ?string
     {
-        return $this->to;
+        return $this->imapUtf8Fix($this->to);
     }
 
     /**
@@ -128,5 +129,14 @@ class MailHeadersDTO
     public function getContentType(): ?string
     {
         return $this->contentType;
+    }
+
+    /**
+     * @param $string
+     * @return false|string
+     */
+    private function imapUtf8Fix($string)
+    {
+        return iconv_mime_decode($string, 0, "UTF-8");
     }
 }

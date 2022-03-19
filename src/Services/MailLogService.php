@@ -25,13 +25,15 @@ class MailLogService implements MailLogServiceInterface
      */
     public function getMails(): array
     {
-        $data = file($this->getPath());
         $mails = [];
-        foreach ($data as $item) {
-            $mailItem = explode('DEBUG:', $item);
-            preg_match('#\[(.*)\]#', $mailItem[0], $timeData);
-            $mailData = json_decode(trim($mailItem[1]), true, 512, JSON_THROW_ON_ERROR);
-            $mails[] = new MailDTO(current($mailData), $timeData[1]);
+        if (is_file($this->getPath())) {
+            $data = file($this->getPath());
+            foreach ($data as $item) {
+                $mailItem = explode('DEBUG:', $item);
+                preg_match('#\[(.*)\]#', $mailItem[0], $timeData);
+                $mailData = json_decode(trim($mailItem[1]), true, 512, JSON_THROW_ON_ERROR);
+                $mails[] = new MailDTO(current($mailData), $timeData[1]);
+            }
         }
 
         return $mails;

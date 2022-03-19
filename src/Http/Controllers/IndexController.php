@@ -36,6 +36,9 @@ class IndexController extends Controller
         $mails = $this->mailLogService->getMails();
         $id = (int)$request->get('id', 0);
         $selectedMail = $mails[$id] ?? current($mails);
+        if (empty($mails)) {
+            throw new RuntimeException('Email database is empty');
+        }
 
         return View::file(self::PATH_VIEW.'/index2.blade.php', [
             'mails' => $mails,
