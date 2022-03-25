@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class IndexController extends Controller
 {
     /** @var string path with views */
-    protected const PATH_VIEW = __DIR__.'/../../../resources/views';
+    protected const PATH_VIEW = __DIR__ . '/../../../resources/views';
 
     protected $mailLogService;
 
@@ -40,7 +40,7 @@ class IndexController extends Controller
             throw new RuntimeException('Email database is empty');
         }
 
-        return View::file(self::PATH_VIEW.'/index4.blade.php', [
+        return View::file(self::PATH_VIEW . '/index.blade.php', [
             'mails' => $mails,
             'selectedMail' => $selectedMail,
             'id' => $id
@@ -57,7 +57,7 @@ class IndexController extends Controller
             throw new RuntimeException('Error, email not found');
         }
 
-        return View::file(self::PATH_VIEW.'/view.blade.php', [
+        return View::file(self::PATH_VIEW . '/view.blade.php', [
             'body' => $mail->getBody(),
             'headers' => $mail->getHeaders(),
         ]);
@@ -73,7 +73,7 @@ class IndexController extends Controller
             throw new RuntimeException('Error, email not found');
         }
 
-        return View::file(self::PATH_VIEW.'/view.blade.php', [
+        return View::file(self::PATH_VIEW . '/view.blade.php', [
             'body' => $mail->getBody(),
         ]);
     }
@@ -94,9 +94,11 @@ class IndexController extends Controller
     {
         $asset = (new Web())->asset($path);
 
-        if (! $asset) throw new NotFoundHttpException;
+        if (!$asset) {
+            throw new NotFoundHttpException;
+        }
 
-        return new BinaryFileResponse($asset['path'], 200, [ 'Content-Type' => $asset['mime'] ]);
+        return new BinaryFileResponse($asset['path'], 200, ['Content-Type' => $asset['mime']]);
     }
 
     public function testAction()

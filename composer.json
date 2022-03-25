@@ -1,6 +1,6 @@
 {
   "name": "xman12/mailinterceptor",
-  "description": "description",
+  "description": "Library for catching emails and comfort view his",
   "minimum-stability": "stable",
   "license": "proprietary",
   "authors": [
@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "php": "^7.1.3",
+    "php": "^7.3",
     "ext-json": "*",
     "ext-iconv": "*"
   },

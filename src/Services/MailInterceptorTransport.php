@@ -23,7 +23,7 @@ class MailInterceptorTransport extends Transport
     /**
      * Create a new log transport instance.
      *
-     * @param  \Psr\Log\LoggerInterface  $logger
+     * @param \Psr\Log\LoggerInterface $logger
      * @return void
      */
     public function __construct(LoggerInterface $logger)
@@ -58,7 +58,7 @@ class MailInterceptorTransport extends Transport
         $headers = explode("\r\n", $headersString);
         $headersData = $this->parseParams($headers);
         $body = $entity->getBody();
-        $data []= [
+        $data [] = [
             'headers' => $headersData,
             'body' => $body
         ];

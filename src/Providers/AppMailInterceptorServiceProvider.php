@@ -23,7 +23,7 @@ class AppMailInterceptorServiceProvider extends ServiceProvider
             return new MailLogService($app);
         });
 
-        $this->app->singleton("url", function($app) {
+        $this->app->singleton("url", function ($app) {
             $routes = $app['router']->getRoutes();
             return new MailInterceptorUrlGenerator(  // this is actually my class due to the namespace above
                 $routes, $app->rebinding(

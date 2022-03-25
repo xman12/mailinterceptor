@@ -31,7 +31,7 @@ class MailInterceptorServiceProvider extends MailServiceProvider
     public function provides(): array
     {
         $providers = parent::provides();
-        array_push($providers, Web::SERVICE_NAME);
+        $providers[] = Web::SERVICE_NAME;
 
         return $providers;
     }

@@ -16,7 +16,7 @@ class MailInterceptorUrlGenerator extends UrlGenerator
         $prefix = $this->getRequest()->route()->getPrefix();
         if (Web::SERVICE_NAME === $prefix) {
 
-            return $this->resolveAssetPath($path).DIRECTORY_SEPARATOR;
+            return $this->resolveAssetPath($path) . DIRECTORY_SEPARATOR;
         }
 
         return parent::asset($path, $secure);

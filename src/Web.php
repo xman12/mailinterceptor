@@ -8,12 +8,14 @@ class Web
     /** @var string */
     public const SERVICE_NAME = 'mailinterceptor';
 
-    // Return the absolute path and a mime type of an asset, protects from accessing files outside Clockwork public dir
+    // Return the absolute path and a mime type of an asset
     public function asset($path)
     {
         $path = $this->resolveAssetPath($path);
 
-        if (!$path) return;
+        if (!$path) {
+            return;
+        }
 
         switch (pathinfo($path, PATHINFO_EXTENSION)) {
             case 'css':
@@ -39,12 +41,12 @@ class Web
         ];
     }
 
-    // Resolves absolute path of the asset, protects from accessing files outside Clockwork public dir
+    // Resolves absolute path of the asset
     protected function resolveAssetPath($path)
     {
-        $publicPath = realpath(__DIR__ . '/../resources');
+        $publicPath = dirname(__DIR__) . '/resources';
 
-        $path = realpath("$publicPath/{$path}");
+        $path = realpath("$publicPath/$path");
 
         return strpos($path, $publicPath) === 0 ? $path : false;
     }

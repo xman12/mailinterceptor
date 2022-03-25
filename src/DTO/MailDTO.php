@@ -2,6 +2,8 @@
 
 namespace MailInterceptor\DTO;
 
+use tidy;
+
 class MailDTO
 {
     /** @var string */
@@ -10,7 +12,7 @@ class MailDTO
     /** @var MailHeadersDTO */
     private $headers;
 
-    /** @var string  */
+    /** @var string */
     private $body;
 
     public function __construct(array $data, string $time)

@@ -48,7 +48,7 @@ class MailHeadersDTO
     private $contentType;
 
     /**
-     * @param  array  $data
+     * @param array $data
      *
      * @return static
      */
