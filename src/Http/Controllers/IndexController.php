@@ -40,7 +40,7 @@ class IndexController extends Controller
             throw new RuntimeException('Email database is empty');
         }
 
-        return View::file(self::PATH_VIEW.'/index2.blade.php', [
+        return View::file(self::PATH_VIEW.'/index4.blade.php', [
             'mails' => $mails,
             'selectedMail' => $selectedMail,
             'id' => $id
@@ -81,6 +81,8 @@ class IndexController extends Controller
     public function deleteMailAction(int $id)
     {
         $this->mailLogService->deleteById($id);
+
+        return redirect(route('mailinterceptor.index'));
     }
 
     public function flushAction()

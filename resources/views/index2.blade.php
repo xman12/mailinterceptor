@@ -156,6 +156,33 @@
         }
     }
 
+    function toggleActiveClass(arr, className) {
+        for (const item of arr) {
+            item.onclick = () => {
+                for (const k of arr) {
+                    k.classList.remove(className);
+                }
+                item.classList.add(className);
+            };
+        }
+    }
+
+    // ===== active tab =====
+
+    const tabs = document.querySelectorAll(".tab");
+    toggleActiveClass(tabs, "active-tab");
+
+    // ===== active message =====
+
+    const messages = document.querySelectorAll(".message-wrap");
+    toggleActiveClass(messages, "active-message");
+
+    // ===== active nav =====
+
+    const nav = document.querySelectorAll(".nav-item");
+    toggleActiveClass(nav, "active-nav");
+
+
 </script>
 
 </body>

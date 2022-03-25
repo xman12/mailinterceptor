@@ -1,0 +1,296 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.title {
+  font-size: 33px;
+  line-height: 120%;
+}
+
+.bodyM {
+  font-size: 14px;
+  line-height: 140%;
+}
+
+.bodyS {
+  font-size: 12px;
+  line-height: 130%;
+}
+
+.captionS {
+  font-size: 10px;
+  line-height: 120%;
+}
+
+.black50 {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.white50 {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.white60 {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.border-bottom {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* ----- grid ----- */
+
+.wrapper {
+  width: 100%;
+  font-family: "Roboto", sans-serif;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 20% 1fr;
+  grid-template-rows: auto 1fr;
+  grid-auto-rows: minmax(168px, auto);
+  grid-template-areas:
+    "aside header header header header"
+    "aside main main main main";
+}
+
+.aside {
+  grid-area: aside;
+  display: flex;
+  flex-direction: column;
+  background-color: #f2f2f2;
+}
+
+.aside-content {
+  overflow: auto;
+}
+
+.header {
+  grid-area: header;
+}
+
+.main {
+  background-color: #e5e5e5;
+  grid-area: main;
+  flex-grow: 1;
+  overflow: auto;
+}
+
+/* ----- grid end ---- */
+
+/* ----- aside ----- */
+
+.aside-header {
+  background-color: #fff;
+}
+
+.logo-wrap {
+  display: inline-block;
+}
+
+.logo-wrap img {
+  width: 32px;
+  border-radius: 50%;
+}
+
+.aside-title {
+  font-size: 20px;
+  line-height: 120%;
+  font-weight: semi-bold;
+}
+
+.aside-content {
+  flex-grow: 1;
+}
+
+.message-wrap {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.message-wrap:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.message-wrap.active-message:hover {
+  background-color: #47c047;
+  cursor: default;
+}
+
+.message-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.message {
+  margin-bottom: 2px;
+}
+
+.active-message {
+  background-color: #47c047;
+}
+
+.active-message .bodyM {
+  color: #fff;
+}
+
+.message-email {
+  position: relative;
+  top: 2px;
+}
+
+/* ----- aside end ----- */
+
+/* ----- header ----- */
+
+.header {
+  background-color: #4e4e4e;
+}
+
+.header-inner {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.expand-circle-down {
+  font-size: 12px;
+}
+
+.nav-item {
+  cursor: pointer;
+}
+
+.nav-item.active-nav:hover {
+  cursor: default;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.nav-item:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.active-nav {
+  color: #fff;
+  border-bottom: 4px solid #47c047;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.menu {
+  top: 8px;
+  right: 16px;
+}
+
+.menu div {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.material-icons {
+  font-size: 17px;
+}
+
+.menu div:hover .material-icons {
+  color: #fff;
+}
+
+.accordion-item,
+.accordion-item button,
+.nav-wrap {
+  background-color: #4e4e4e;
+}
+
+.accordion-item {
+  border: 0;
+}
+
+.accordion-button:focus {
+  z-index: 3;
+  border-color: #4e4e4e;
+  outline: 0;
+  box-shadow: none;
+}
+
+.accordion-button:not(.collapsed) {
+  color: inherit;
+  background-color: #4e4e4e;
+  box-shadow: none;
+}
+
+.accordion-item:first-of-type .accordion-button {
+  border-radius: 0;
+}
+
+.accordion-button::after {
+  display: none;
+}
+
+.expand-circle-down-wrap {
+  transition: all ease 0.3s;
+}
+
+.accordion-header:hover .expand-circle-down {
+  color: #fff;
+}
+
+.accordionShow {
+  transform: translate(0, 2px) rotate(180deg);
+}
+
+/* ----- header end ----- */
+
+/* ----- main ----- */
+
+.content {
+  background-color: #c4c4c4;
+  border-radius: 8px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ----- main end ----- */
+
+/* ----- tab-group ----- */
+
+.tab-group {
+  background-color: #4e4e4e;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.25);
+  font-size: 0;
+}
+
+.active-tab {
+  background-color: #47c047;
+  color: #fff;
+}
+
+.tab:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.tab.active-tab:hover {
+  cursor: default;
+  background-color: #47c047;
+}
+
+.radius-4-top-left {
+  border-top-left-radius: 4px;
+}
+
+.radius-4-top-right {
+  border-top-right-radius: 4px;
+}
+.radius-4-bottom-left {
+  border-bottom-left-radius: 4px;
+}
+.radius-4-bottom-left {
+  border-bottom-left-radius: 4px;
+}
+
+/* ----- tab-group end----- */
