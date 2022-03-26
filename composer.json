@@ -1,11 +1,12 @@
 {
   "name": "xman12/mailinterceptor",
-  "description": "Library for catching emails and comfort view his",
+  "description": "Laravel email driver for catching emails and comfort view his",
   "minimum-stability": "stable",
-  "license": "proprietary",
+  "license": "LGPL-3.0-or-later",
+  "type": "library",
   "authors": [
     {
-      "name": "aleksandrbelysev",
+      "name": "xman12",
       "email": "xman12@mail.ru"
     }
   ],
