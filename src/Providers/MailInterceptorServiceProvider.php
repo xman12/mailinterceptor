@@ -11,15 +11,15 @@ use MailInterceptor\Web;
  */
 class MailInterceptorServiceProvider extends MailServiceProvider
 {
-    /**
-     * Define MailInterceptor transport manager
-     *
-     * @return void
-     */
-    protected function registerSwiftTransport()
+    protected function registerIlluminateMailer()
     {
-        $this->app->singleton('swift.transport', function () {
-            return new TransportMailManager($this->app);
+        $this->app->singleton('mail.manager', function($app) {
+            return new TransportMailManager($app);
+        });
+
+        // Copied from Illuminate\Mail\MailServiceProvider
+        $this->app->bind('mailer', function ($app) {
+            return $app->make('mail.manager')->mailer();
         });
     }
 

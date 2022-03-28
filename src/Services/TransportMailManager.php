@@ -3,18 +3,18 @@
 namespace MailInterceptor\Services;
 
 use Illuminate\Log\LogManager;
-use Illuminate\Mail\TransportManager;
+use Illuminate\Mail\MailManager;
 use Psr\Log\LoggerInterface;
 
 /**
  * MailInterceptor transport manager
  */
-class TransportMailManager extends TransportManager
+class TransportMailManager extends MailManager
 {
     /**
      * @return MailInterceptorTransport
      */
-    protected function createMailInterceptorDriver()
+    protected function createMailInterceptorTransport()
     {
         $logger = $this->app->make(LoggerInterface::class);
 
