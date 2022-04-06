@@ -38,7 +38,11 @@ class MailInterceptorTransport extends Transport
     {
         $this->beforeSendPerformed($message);
 
-        $this->logger->debug($this->getMimeEntityString($message));
+        try {
+            $this->logger->debug($this->getMimeEntityString($message));
+        }catch (\Exception $e) {
+
+        }
 
         $this->sendPerformed($message);
 
