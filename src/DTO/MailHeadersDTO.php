@@ -88,7 +88,7 @@ class MailHeadersDTO
      */
     public function getSubject(): ?string
     {
-        return $this->imapUtf8Fix($this->subject);
+        return $this->isImap($this->subject) ? $this->imapUtf8Fix($this->subject) : $this->subject;
     }
 
     /**
@@ -96,7 +96,7 @@ class MailHeadersDTO
      */
     public function getFrom(): ?string
     {
-        return $this->imapUtf8Fix($this->from);
+        return $this->isImap($this->from) ? $this->imapUtf8Fix($this->from) : $this->from;
     }
 
     /**
@@ -104,7 +104,7 @@ class MailHeadersDTO
      */
     public function getTo(): ?string
     {
-        return $this->imapUtf8Fix($this->to);
+        return $this->isImap($this->to) ? $this->imapUtf8Fix($this->to): $this->to;
     }
 
     /**
@@ -139,4 +139,14 @@ class MailHeadersDTO
     {
         return iconv_mime_decode($string, 0, "UTF-8");
     }
+
+    private function isImap(string $string): bool
+    {
+        if (strtr('=?utf-8?', $string)) {
+            return true;
+        }
+
+        return false;
+    }
+
 }
