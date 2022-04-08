@@ -142,7 +142,7 @@ class MailHeadersDTO
 
     private function isImap(string $string): bool
     {
-        if (strpos('=?utf-8?', $string) !== false) {
+        if (strpos($string, '=?utf-8?') !== false) {
             return true;
         }
 
