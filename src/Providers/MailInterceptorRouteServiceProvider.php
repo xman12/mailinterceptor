@@ -18,7 +18,7 @@ class MailInterceptorRouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'MailInterceptor\Http\Controllers';
+    protected $namespace = '';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -39,7 +39,7 @@ class MailInterceptorRouteServiceProvider extends ServiceProvider
     {
         // will be work only into local space
         if ('local' === $this->app['config']['app.env']) {
-            Route::prefix(Web::SERVICE_NAME)->namespace($this->namespace)->group(function () {
+            Route::prefix(Web::SERVICE_NAME)->namespace('\MailInterceptor\Http\Controllers')->group(function () {
 
                 Route::get('/', 'IndexController@indexAction')->name('mailinterceptor.index');
                 Route::get('/view/{id}/', 'IndexController@viewAction')->name('mailinterceptor.view');

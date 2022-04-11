@@ -36,7 +36,7 @@ class MailLogService implements MailLogServiceInterface
             }
         }
 
-        return $mails;
+        return array_reverse($mails);
     }
 
     /**
