@@ -67,6 +67,20 @@ class MailHeadersDTO
         return $self;
     }
 
+    public function toArray(): array
+    {
+        return [
+            'to' => $this->to,
+            'contentTransferEncoding' => $this->contentTransferEncoding,
+            'date' => $this->date,
+            'from' => $this->from,
+            'messageId' => $this->messageId,
+            'mimeVersion' => $this->mimeVersion,
+            'subject' => $this->subject,
+            'contentType' => $this->contentType,
+        ];
+    }
+
     /**
      * @return string|null
      */

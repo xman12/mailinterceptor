@@ -45,6 +45,25 @@ class IndexController extends Controller
         ]);
     }
 
+    public function indexApiAction(Request $request)
+    {
+        $mails = $this->mailLogService->getMails();
+        if (empty($mails)) {
+            throw new RuntimeException('Email database is empty');
+        }
+        $mailData = [];
+        foreach ($mails as $mailDTO) {
+            $mailData[] = $mailDTO->toArray();
+        }
+
+        return response()->json(
+            [
+                'result' => $mailData,
+            ]
+        );
+    }
+
+
     /**
      * @throws JsonException
      */

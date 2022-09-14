@@ -47,7 +47,7 @@ class MailInterceptorRouteServiceProvider extends ServiceProvider
                 Route::get('/delete/{id}/', 'IndexController@deleteMailAction')->name('mailinterceptor.mail.delete');
                 Route::get('/clear/', 'IndexController@flushAction')->name('mailinterceptor.flush');
                 Route::get('/assets/{path}/', 'IndexController@webAssetAction')->where('path', '.*')->name('mailinterceptor.assets');
-
+                Route::get('/api/', 'IndexController@indexApiAction')->name('mailinterceptor.api.index');
             });
         }
     }

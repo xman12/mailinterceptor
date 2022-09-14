@@ -45,4 +45,14 @@ class MailDTO
     {
         return $this->time;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'time' => $this->time,
+            'headers' => $this->headers->toArray(),
+            'body' => $this->body,
+        ];
+    }
+
 }
