@@ -2,6 +2,9 @@
 
 namespace MailInterceptor\DTO;
 
+/**
+ * Mail headers DTO
+ */
 class MailHeadersDTO
 {
     public const HEADER_MESSAGE_ID = 'Message-ID';
@@ -48,6 +51,8 @@ class MailHeadersDTO
     private $contentType;
 
     /**
+     * Create DTO from array
+     *
      * @param array $data
      *
      * @return static
@@ -67,6 +72,11 @@ class MailHeadersDTO
         return $self;
     }
 
+    /**
+     * Get array data
+     *
+     * @return array
+     */
     public function toArray(): array
     {
         return [
@@ -118,7 +128,7 @@ class MailHeadersDTO
      */
     public function getTo(): ?string
     {
-        return $this->isImap($this->to) ? $this->imapUtf8Fix($this->to): $this->to;
+        return $this->isImap($this->to) ? $this->imapUtf8Fix($this->to) : $this->to;
     }
 
     /**

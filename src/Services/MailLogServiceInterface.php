@@ -10,9 +10,10 @@ use MailInterceptor\DTO\MailDTO;
 interface MailLogServiceInterface
 {
     /**
+     * @param bool $toArray
      * @return MailDTO[]
      */
-    public function getMails(): array;
+    public function getMails(bool $toArray = false): array;
 
     /**
      * @param int $id

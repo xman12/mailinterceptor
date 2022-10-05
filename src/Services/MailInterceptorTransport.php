@@ -40,7 +40,7 @@ class MailInterceptorTransport extends Transport
 
         try {
             $this->logger->debug($this->getMimeEntityString($message));
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
 
         }
 
@@ -70,13 +70,28 @@ class MailInterceptorTransport extends Transport
         return json_encode($data, JSON_THROW_ON_ERROR);
     }
 
+    /**
+     * Parse header parameters
+     *
+     * @param array $headers
+     * @return array
+     */
     private function parseParams(array $headers): array
     {
         $params = [];
+        $lastHeader = null;
         foreach ($headers as $header) {
             $data = explode(':', $header);
+            $value = null;
+            if (isset($data[1])) {
+                $value = trim($data[1]);
+            }
+
             if (in_array($data[0], MailHeadersDTO::HEADERS, true)) {
-                $params[$data[0]] = trim($data[1]);
+                $params[$data[0]] = $value;
+                $lastHeader = $data[0];
+            } else if (in_array($lastHeader, MailHeadersDTO::HEADERS, true)) {
+                $params[$lastHeader] .= trim($header);
             }
         }
 

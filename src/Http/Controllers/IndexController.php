@@ -19,7 +19,8 @@ class IndexController extends Controller
     /** @var string path with views */
     protected const PATH_VIEW = __DIR__ . '/../../../resources/views';
 
-    protected $mailLogService;
+    /** @var MailLogServiceInterface  */
+    protected MailLogServiceInterface $mailLogService;
 
     public function __construct(MailLogServiceInterface $mailLogService)
     {
@@ -38,34 +39,37 @@ class IndexController extends Controller
             throw new RuntimeException('Email database is empty');
         }
 
-        return View::file(self::PATH_VIEW . '/index.blade.php', [
+        return View::file(self::PATH_VIEW . DIRECTORY_SEPARATOR . 'index.blade.php', [
             'mails' => $mails,
             'selectedMail' => $selectedMail,
             'id' => $id
         ]);
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function indexApiAction(Request $request)
     {
         $mails = $this->mailLogService->getMails();
         if (empty($mails)) {
             throw new RuntimeException('Email database is empty');
         }
-        $mailData = [];
-        foreach ($mails as $mailDTO) {
-            $mailData[] = $mailDTO->toArray();
-        }
 
         return response()->json(
             [
-                'result' => $mailData,
+                'result' => $mails,
             ]
         );
     }
 
 
     /**
-     * @throws JsonException
+     * @param int $id
+     *
+     * @return \Illuminate\Contracts\View\View
      */
     public function showMailAction(int $id)
     {
@@ -74,14 +78,16 @@ class IndexController extends Controller
             throw new RuntimeException('Error, email not found');
         }
 
-        return View::file(self::PATH_VIEW . '/view.blade.php', [
+        return View::file(self::PATH_VIEW . DIRECTORY_SEPARATOR . 'view.blade.php', [
             'body' => $mail->getBody(),
             'headers' => $mail->getHeaders(),
         ]);
     }
 
     /**
-     * @throws JsonException
+     * @param int $id
+     *
+     * @return \Illuminate\Contracts\View\View
      */
     public function viewAction(int $id)
     {
@@ -90,11 +96,17 @@ class IndexController extends Controller
             throw new RuntimeException('Error, email not found');
         }
 
-        return View::file(self::PATH_VIEW . '/view.blade.php', [
+        return View::file(self::PATH_VIEW . DIRECTORY_SEPARATOR . 'view.blade.php', [
             'body' => $mail->getBody(),
         ]);
     }
 
+    /**
+     * Delete element from database
+     *
+     * @param int $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function deleteMailAction(int $id)
     {
         $this->mailLogService->deleteById($id);
@@ -102,11 +114,22 @@ class IndexController extends Controller
         return redirect(route('mailinterceptor.index'));
     }
 
+    /**
+     * Flush data from base
+     *
+     * @return void
+     */
     public function flushAction()
     {
         $this->mailLogService->flush();
     }
 
+    /**
+     * Get static for page
+     *
+     * @param $path
+     * @return BinaryFileResponse
+     */
     public function webAssetAction($path)
     {
         $asset = (new Web())->asset($path);

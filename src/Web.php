@@ -48,6 +48,6 @@ class Web
 
         $path = realpath("$publicPath/$path");
 
-        return strpos($path, $publicPath) === 0 ? $path : false;
+        return 0 === strpos($path, $publicPath) ? $path : false;
     }
 }

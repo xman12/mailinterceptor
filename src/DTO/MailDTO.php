@@ -2,18 +2,19 @@
 
 namespace MailInterceptor\DTO;
 
-use tidy;
-
+/**
+ * Mail DTO
+ */
 class MailDTO
 {
-    /** @var string */
-    private $time;
+    /** @var string|null */
+    private ?string $time;
 
-    /** @var MailHeadersDTO */
-    private $headers;
+    /** @var MailHeadersDTO|null */
+    private ?MailHeadersDTO $headers;
 
-    /** @var string */
-    private $body;
+    /** @var string|null */
+    private ?string $body;
 
     public function __construct(array $data, string $time)
     {
@@ -23,35 +24,40 @@ class MailDTO
     }
 
     /**
-     * @return MailHeadersDTO
+     * @return MailHeadersDTO|null
      */
-    public function getHeaders(): MailHeadersDTO
+    public function getHeaders(): ?MailHeadersDTO
     {
         return $this->headers;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getBody(): string
+    public function getBody(): ?string
     {
         return $this->body;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getTime(): string
+    public function getTime(): ?string
     {
         return $this->time;
     }
 
+    /**
+     * Get array data
+     *
+     * @return array
+     */
     public function toArray(): array
     {
         return [
-            'time' => $this->time,
-            'headers' => $this->headers->toArray(),
-            'body' => $this->body,
+            'time' => $this->getTime(),
+            'headers' => null !== $this->getHeaders() ? $this->getHeaders()->toArray() : null,
+            'body' => $this->getBody(),
         ];
     }
 

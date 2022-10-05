@@ -24,8 +24,6 @@ class MailInterceptorServiceProvider extends MailServiceProvider
     }
 
     /**
-     *
-     *
      * @return array
      */
     public function provides(): array

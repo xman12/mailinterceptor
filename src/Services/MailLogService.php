@@ -12,7 +12,7 @@ use JsonException;
 class MailLogService implements MailLogServiceInterface
 {
     /** @var Application */
-    protected $app;
+    protected Application $app;
 
     public function __construct($app)
     {
@@ -23,7 +23,7 @@ class MailLogService implements MailLogServiceInterface
      * @inheritdoc
      * @throws JsonException
      */
-    public function getMails(): array
+    public function getMails(bool $toArray = false): array
     {
         $mails = [];
         if (is_file($this->getPath())) {
@@ -32,7 +32,8 @@ class MailLogService implements MailLogServiceInterface
                 $mailItem = explode('DEBUG:', $item);
                 preg_match('#\[(.*)\]#', $mailItem[0], $timeData);
                 $mailData = json_decode(trim($mailItem[1]), true, 512, JSON_THROW_ON_ERROR);
-                $mails[] = new MailDTO(current($mailData), $timeData[1]);
+                $mailDTO = new MailDTO(current($mailData), $timeData[1]);
+                $mails[] = $toArray ? $mailDTO->toArray() : $mailDTO;
             }
         }
 
