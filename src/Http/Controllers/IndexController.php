@@ -53,7 +53,7 @@ class IndexController extends Controller
      */
     public function indexApiAction(Request $request)
     {
-        $mails = $this->mailLogService->getMails();
+        $mails = $this->mailLogService->getMails(true);
         if (empty($mails)) {
             throw new RuntimeException('Email database is empty');
         }

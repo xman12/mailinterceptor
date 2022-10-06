@@ -80,14 +80,14 @@ class MailHeadersDTO
     public function toArray(): array
     {
         return [
-            'to' => $this->to,
-            'contentTransferEncoding' => $this->contentTransferEncoding,
-            'date' => $this->date,
-            'from' => $this->from,
-            'messageId' => $this->messageId,
-            'mimeVersion' => $this->mimeVersion,
-            'subject' => $this->subject,
-            'contentType' => $this->contentType,
+            'to' => $this->getTo(),
+            'contentTransferEncoding' => $this->getContentTransferEncoding(),
+            'date' => $this->getDate(),
+            'from' => $this->getFrom(),
+            'messageId' => $this->getMessageId(),
+            'mimeVersion' => $this->getMimeVersion(),
+            'subject' => $this->getSubject(),
+            'contentType' => $this->getContentType(),
         ];
     }
 
