@@ -3,15 +3,20 @@
 namespace MailInterceptor\Services;
 
 use MailInterceptor\DTO\MailHeadersDTO;
-use Illuminate\Mail\Transport\Transport;
 use Psr\Log\LoggerInterface;
-use Swift_Mime_SimpleMessage;
-use Swift_Mime_SimpleMimeEntity;
+use Symfony\Component\Mailer\Envelope;
+use Symfony\Component\Mailer\SentMessage;
+use Symfony\Component\Mailer\Transport\TransportInterface;
+use Symfony\Component\Mime\Header\AbstractHeader;
+use Symfony\Component\Mime\Message;
+use Symfony\Component\Mime\RawMessage;
+use Symfony\Component\Mime\Email;
+
 
 /**
  * MailInterceptor mail transport
  */
-class MailInterceptorTransport extends Transport
+class MailInterceptorTransport implements TransportInterface
 {
     /**
      * The Logger instance.
@@ -34,49 +39,32 @@ class MailInterceptorTransport extends Transport
     /**
      * {@inheritdoc}
      */
-    public function send(Swift_Mime_SimpleMessage $message, &$failedRecipients = null)
+    public function send(RawMessage $message, Envelope $envelope = null): ?SentMessage
     {
-        $this->beforeSendPerformed($message);
+        $string = $message->toString();
 
-        $this->logger->debug($this->getMimeEntityString($message));
-
-        $this->sendPerformed($message);
-
-        return $this->numberOfRecipients($message);
-    }
-
-    /**
-     * Get a loggable string out of a Swiftmailer entity.
-     *
-     * @param \Swift_Mime_SimpleMimeEntity $entity
-     * @return string
-     * @throws \JsonException
-     */
-    protected function getMimeEntityString(Swift_Mime_SimpleMimeEntity $entity)
-    {
-        $headersString = $entity->getHeaders()->toString();
-        $headers = explode("\r\n", $headersString);
-        $headersData = $this->parseParams($headers);
-        $body = $entity->getBody();
-        $data [] = [
-            'headers' => $headersData,
-            'body' => $body
-        ];
-
-        return json_encode($data, JSON_THROW_ON_ERROR);
-    }
-
-    private function parseParams(array $headers): array
-    {
-        $params = [];
-        foreach ($headers as $header) {
-            $data = explode(':', $header);
-            if (in_array($data[0], MailHeadersDTO::HEADERS, true)) {
-                $params[$data[0]] = trim($data[1]);
-            }
+        if (str_contains($string, 'Content-Transfer-Encoding: quoted-printable')) {
+            $string = quoted_printable_decode($string);
         }
+        $headers = [];
+        if ($message instanceof Email) {
+            foreach ($message->getHeaders()->all() as $header) {
+                if ($header instanceof AbstractHeader) {
+                    if (in_array($header->getName(), MailHeadersDTO::HEADERS, true)) {
+                        $headers[$header->getName()] = $header->getBodyAsString();
+                    }
+                }
+            }
+            $string = $message->getHtmlBody();
+        }
+        $data = [
+            'headers' => $headers,
+            'body' => $string
+        ];
+        $dd = var_export(json_encode($data, JSON_UNESCAPED_UNICODE), true);
+        $this->logger->debug($dd);
 
-        return $params;
+        return new SentMessage($message, $envelope ?? Envelope::create($message));
     }
 
     /**
@@ -88,4 +76,10 @@ class MailInterceptorTransport extends Transport
     {
         return $this->logger;
     }
+
+    public function __toString(): string
+    {
+        return 'mailinterceptor';
+    }
+
 }
