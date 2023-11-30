@@ -3,8 +3,6 @@
 namespace MailInterceptor\Http\Controllers;
 
 use Illuminate\Http\Request;
-use MailInterceptor\Mail\Test;
-use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Support\Facades\View;
 use JsonException;
 use MailInterceptor\Services\MailLogServiceInterface;
@@ -100,4 +98,5 @@ class IndexController extends Controller
 
         return new BinaryFileResponse($asset['path'], 200, ['Content-Type' => $asset['mime']]);
     }
+
 }

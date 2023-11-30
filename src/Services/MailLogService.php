@@ -31,8 +31,9 @@ class MailLogService implements MailLogServiceInterface
             foreach ($data as $item) {
                 $mailItem = explode('DEBUG:', $item);
                 preg_match('#\[(.*)\]#', $mailItem[0], $timeData);
-                $mailData = json_decode(trim($mailItem[1]), true, 512, JSON_THROW_ON_ERROR);
-                $mails[] = new MailDTO(current($mailData), $timeData[1]);
+                $mailSource = trim(str_replace(['\'{', '}\'', "\n", "\\\\n"], ['{', '}', ''], $mailItem[1]));
+                $mailData = json_decode($mailSource, true);
+                $mails[] = new MailDTO($mailData, $timeData[1]);
             }
         }
 
